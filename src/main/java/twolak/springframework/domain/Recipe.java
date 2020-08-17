@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
  * @author twolak
  *
  */
-@Entity(name = "RECIPE")
+@Entity
 public class Recipe {
     
     @Id
