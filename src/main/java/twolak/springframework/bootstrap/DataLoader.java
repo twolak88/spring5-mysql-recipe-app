@@ -151,18 +151,16 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 				"4 Serve: Serve immediately, or if making a few hours ahead, place plastic wrap on the surface of the guacamole and press down to cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n", 
 				Difficulty.EASY,
 				createNotes("Be careful handling chiles if using. Wash your hands thoroughly after handling and do not touch your eyes or the area near your eyes with your hands for several hours."));
-		Set<Ingredient> gIngredients = new HashSet<>();
-		gIngredients.add(createIngridient("ripe avocados", BigDecimal.valueOf(2), pieceUom, guacamole));
-		gIngredients.add(createIngridient("salt", BigDecimal.valueOf(0.25), teaspoonUom, guacamole));
-		gIngredients.add(createIngridient("fresh lime juice or lemon juice", BigDecimal.valueOf(1), tablespoonUom, guacamole));
-		gIngredients.add(createIngridient("minced red onion or thinly sliced green onion", BigDecimal.valueOf(2), tablespoonUom, guacamole));
-		gIngredients.add(createIngridient("serrano chiles, stems and seeds removed, minced", BigDecimal.valueOf(2), pieceUom, guacamole));
-		gIngredients.add(createIngridient("cilantro (leaves and tender stems), finely chopped", BigDecimal.valueOf(2), tablespoonUom, guacamole));
-		gIngredients.add(createIngridient("freshly grated black pepper", BigDecimal.valueOf(1), dashUom, guacamole));
-		gIngredients.add(createIngridient("ripe tomato, seeds and pulp removed, chopped", BigDecimal.valueOf(0.5), pieceUom, guacamole));
-		gIngredients.add(createIngridient("Red radishes or jicama, to garnish", BigDecimal.valueOf(5), pieceUom, guacamole));
-		gIngredients.add(createIngridient("Tortilla chips, to serve", BigDecimal.valueOf(1), pieceUom, guacamole));
-		guacamole.getIngredients().addAll(gIngredients);
+		guacamole.addIngredient(new Ingredient("ripe avocados", BigDecimal.valueOf(2), pieceUom));
+		guacamole.addIngredient(new Ingredient("salt", BigDecimal.valueOf(0.25), teaspoonUom));
+		guacamole.addIngredient(new Ingredient("fresh lime juice or lemon juice", BigDecimal.valueOf(1), tablespoonUom));
+		guacamole.addIngredient(new Ingredient("minced red onion or thinly sliced green onion", BigDecimal.valueOf(2), tablespoonUom));
+		guacamole.addIngredient(new Ingredient("serrano chiles, stems and seeds removed, minced", BigDecimal.valueOf(2), pieceUom));
+		guacamole.addIngredient(new Ingredient("cilantro (leaves and tender stems), finely chopped", BigDecimal.valueOf(2), tablespoonUom));
+		guacamole.addIngredient(new Ingredient("freshly grated black pepper", BigDecimal.valueOf(1), dashUom));
+		guacamole.addIngredient(new Ingredient("ripe tomato, seeds and pulp removed, chopped", BigDecimal.valueOf(0.5), pieceUom));
+		guacamole.addIngredient(new Ingredient("Red radishes or jicama, to garnish", BigDecimal.valueOf(5), pieceUom));
+		guacamole.addIngredient(new Ingredient("Tortilla chips, to serve", BigDecimal.valueOf(1), pieceUom));
 		guacamole.getCategories().add(mexican);
 		guacamole.getCategories().add(american);
 		recipes.add(guacamole);
@@ -192,28 +190,26 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 				"5 Assemble the tacos: Slice the chicken into strips. On each tortilla, place a small handful of arugula. Top with chicken slices, sliced avocado, radishes, tomatoes, and onion slices. Drizzle with the thinned sour cream. Serve with lime wedges.\n",
 				Difficulty.HARD,
 				createNotes("Look for ancho chile powder with the Mexican ingredients at your grocery store, on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)"));
-		Set<Ingredient> cIngredients = new HashSet<>();
-		cIngredients.add(createIngridient("ancho chili powder", BigDecimal.valueOf(2), tablespoonUom, chicken));
-		cIngredients.add(createIngridient("dried oregano", BigDecimal.valueOf(1), teaspoonUom, chicken));
-		cIngredients.add(createIngridient("dried cumin", BigDecimal.valueOf(1), teaspoonUom, chicken));
-		cIngredients.add(createIngridient("sugar", BigDecimal.valueOf(1), teaspoonUom, chicken));
-		cIngredients.add(createIngridient("salt", BigDecimal.valueOf(0.5), teaspoonUom, chicken));
-		cIngredients.add(createIngridient("clove garlic, finely chopped", BigDecimal.valueOf(1), pieceUom, chicken));
-		cIngredients.add(createIngridient("finely grated orange zest", BigDecimal.valueOf(1), tablespoonUom, chicken));
-		cIngredients.add(createIngridient("fresh-squeezed orange juice", BigDecimal.valueOf(3), tablespoonUom, chicken));
-		cIngredients.add(createIngridient("olive oil", BigDecimal.valueOf(2), tablespoonUom, chicken));
-		cIngredients.add(createIngridient("skinless, boneless chicken thighs", BigDecimal.valueOf(1.25), poundUom, chicken));
-		cIngredients.add(createIngridient("small corn tortillas", BigDecimal.valueOf(8), pieceUom, chicken));
-		cIngredients.add(createIngridient("packed baby arugula", BigDecimal.valueOf(3), cupUom, chicken));
-		cIngredients.add(createIngridient("medium ripe avocados, sliced", BigDecimal.valueOf(2), pieceUom, chicken));
-		cIngredients.add(createIngridient("radishes, thinly sliced", BigDecimal.valueOf(4), pieceUom, chicken));
-		cIngredients.add(createIngridient("cherry tomatoes, halved", BigDecimal.valueOf(0.5), quartUom, chicken));
-		cIngredients.add(createIngridient("red onion, thinly sliced", BigDecimal.valueOf(0.25), pieceUom, chicken));
-		cIngredients.add(createIngridient("Roughly chopped cilantro", BigDecimal.valueOf(1), pieceUom, chicken));
-		cIngredients.add(createIngridient("sour cream thinned", BigDecimal.valueOf(0.5), cupUom, chicken));
-		cIngredients.add(createIngridient("milk", BigDecimal.valueOf(0.5), cupUom, chicken));
-		cIngredients.add(createIngridient("lime, cut into wedges", BigDecimal.valueOf(1), pieceUom, chicken));
-		chicken.getIngredients().addAll(cIngredients);
+		chicken.addIngredient(new Ingredient("ancho chili powder", BigDecimal.valueOf(2), tablespoonUom));
+		chicken.addIngredient(new Ingredient("dried oregano", BigDecimal.valueOf(1), teaspoonUom));
+		chicken.addIngredient(new Ingredient("dried cumin", BigDecimal.valueOf(1), teaspoonUom));
+		chicken.addIngredient(new Ingredient("sugar", BigDecimal.valueOf(1), teaspoonUom));
+		chicken.addIngredient(new Ingredient("salt", BigDecimal.valueOf(0.5), teaspoonUom));
+		chicken.addIngredient(new Ingredient("clove garlic, finely chopped", BigDecimal.valueOf(1), pieceUom));
+		chicken.addIngredient(new Ingredient("finely grated orange zest", BigDecimal.valueOf(1), tablespoonUom));
+		chicken.addIngredient(new Ingredient("fresh-squeezed orange juice", BigDecimal.valueOf(3), tablespoonUom));
+		chicken.addIngredient(new Ingredient("olive oil", BigDecimal.valueOf(2), tablespoonUom));
+		chicken.addIngredient(new Ingredient("skinless, boneless chicken thighs", BigDecimal.valueOf(1.25), poundUom));
+		chicken.addIngredient(new Ingredient("small corn tortillas", BigDecimal.valueOf(8), pieceUom));
+		chicken.addIngredient(new Ingredient("packed baby arugula", BigDecimal.valueOf(3), cupUom));
+		chicken.addIngredient(new Ingredient("medium ripe avocados, sliced", BigDecimal.valueOf(2), pieceUom));
+		chicken.addIngredient(new Ingredient("radishes, thinly sliced", BigDecimal.valueOf(4), pieceUom));
+		chicken.addIngredient(new Ingredient("cherry tomatoes, halved", BigDecimal.valueOf(0.5), quartUom));
+		chicken.addIngredient(new Ingredient("red onion, thinly sliced", BigDecimal.valueOf(0.25), pieceUom));
+		chicken.addIngredient(new Ingredient("Roughly chopped cilantro", BigDecimal.valueOf(1), pieceUom));
+		chicken.addIngredient(new Ingredient("sour cream thinned", BigDecimal.valueOf(0.5), cupUom));
+		chicken.addIngredient(new Ingredient("milk", BigDecimal.valueOf(0.5), cupUom));
+		chicken.addIngredient(new Ingredient("lime, cut into wedges", BigDecimal.valueOf(1), pieceUom));
 		chicken.getCategories().add(american);
 		chicken.getCategories().add(fastFood);
 		recipes.add(chicken);
@@ -221,15 +217,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 		System.out.println("chicken created");
 		
 		return recipes;
-	}
-
-	private Ingredient createIngridient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
-		Ingredient ingredient = new Ingredient();
-		ingredient.setAmount(amount);
-		ingredient.setDescription(description);
-		ingredient.setUnitOfMeasure(unitOfMeasure);
-		ingredient.setRecipe(recipe);
-		return ingredient;
 	}
 
 	private Recipe createRecipe(String description, Integer prepTime, Integer cookTime, Integer servings, String source,
@@ -244,7 +231,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 		recipe.setDirections(directions);
 		recipe.setDifficulty(difficulty);
 		recipe.setNotes(notes);
-		notes.setRecipe(recipe);
 		return recipe;
 	}
 
