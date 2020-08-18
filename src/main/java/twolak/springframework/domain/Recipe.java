@@ -3,6 +3,7 @@
  */
 package twolak.springframework.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -37,6 +38,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+    @Lob
     private String directions;
     
     @Enumerated(value = EnumType.STRING)
@@ -49,13 +51,13 @@ public class Recipe {
     private Notes notes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingridient> ingridients;
+    private Set<Ingredient> ingredients = new HashSet<>();
     
     @ManyToMany
     @JoinTable(name = "recipe_category", 
     		joinColumns = @JoinColumn(name = "recipe_id"),
     		inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
     
 	public Long getId() {
         return id;
@@ -137,12 +139,12 @@ public class Recipe {
         this.notes = notes;
     }
 
-	public Set<Ingridient> getIngridients() {
-		return ingridients;
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
 	}
 
-	public void setIngridients(Set<Ingridient> ingridients) {
-		this.ingridients = ingridients;
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	public Difficulty getDifficulty() {
