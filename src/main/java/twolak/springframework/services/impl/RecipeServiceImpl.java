@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import twolak.springframework.domain.Recipe;
 import twolak.springframework.repositories.RecipeRepository;
 import twolak.springframework.services.RecipeService;
@@ -13,6 +14,7 @@ import twolak.springframework.services.RecipeService;
  * @author twolak
  *
  */
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
@@ -24,6 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public Set<Recipe> findAllRecipes() {
+		log.error("Fake error");
 		Set<Recipe> recipes = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
 		return  recipes;

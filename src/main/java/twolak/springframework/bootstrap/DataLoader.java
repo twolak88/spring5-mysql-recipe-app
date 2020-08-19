@@ -2,16 +2,14 @@ package twolak.springframework.bootstrap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
 import twolak.springframework.domain.Category;
 import twolak.springframework.domain.Difficulty;
 import twolak.springframework.domain.Ingredient;
@@ -26,6 +24,7 @@ import twolak.springframework.repositories.UnitOfMeasureRepository;
  * @author twolak
  *
  */
+@Slf4j
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -40,7 +39,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 	}
 	
 	@Override
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+		log.debug("Loading bootstrap data");
 		recipeRepository.saveAll(getRecipes());
 	}
 
@@ -165,7 +166,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 		guacamole.getCategories().add(american);
 		recipes.add(guacamole);
 		
-		System.out.println("guacamole created");
+		log.info("guacamole created");
 		
 		Recipe chicken = createRecipe("Spicy Grilled Chicken Tacos Recipe", 
 				20,
@@ -214,7 +215,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 		chicken.getCategories().add(fastFood);
 		recipes.add(chicken);
 		
-		System.out.println("chicken created");
+		log.info("chicken created");
 		
 		return recipes;
 	}

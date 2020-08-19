@@ -10,10 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Exclude;
+
 /**
  * @author twolak
  *
  */
+@Data
+@EqualsAndHashCode
 @Entity
 public class Notes {
 
@@ -21,33 +27,10 @@ public class Notes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@EqualsAndHashCode.Exclude
 	@OneToOne
 	private Recipe recipe;
 	
 	@Lob
 	private String note;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Recipe getRecipe() {
-		return recipe;
-	}
-
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
 }
