@@ -26,7 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public Set<Recipe> findAllRecipes() {
-		log.error("Fake error");
+		log.info("Calling findAllRecipes()");
 		Set<Recipe> recipes = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
 		return  recipes;
