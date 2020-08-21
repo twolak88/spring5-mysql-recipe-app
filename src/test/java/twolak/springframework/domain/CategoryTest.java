@@ -5,12 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Generated;
-
 import org.junit.Before;
 import org.junit.Test;
 
-@Generated(value = "org.junit-tools-1.1.0")
 public class CategoryTest {
 
 	Category category;
