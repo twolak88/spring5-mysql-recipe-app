@@ -1,6 +1,7 @@
 package twolak.springframework.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -11,26 +12,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.eq;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import twolak.springframework.domain.Recipe;
 import twolak.springframework.services.RecipeService;
 
+/**
+ * @author twolak
+ *
+ */
+@ExtendWith(MockitoExtension.class)
 public class IndexControllerTest {
 	
 	private final int METHODS_CALL_TIMES = 1;
 	private final int RECIPES_IN_SET = 2;
-
+	
+	@InjectMocks
 	private IndexController indexController;
 	
 	@Mock
@@ -39,10 +46,10 @@ public class IndexControllerTest {
 	@Mock
 	private Model model;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		indexController = new IndexController(recipeService);
+//		MockitoAnnotations.initMocks(this);
+//		indexController = new IndexController(recipeService);
 	}
 	
 	@Test

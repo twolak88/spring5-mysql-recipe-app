@@ -19,7 +19,7 @@ import twolak.springframework.services.RecipeService;
 public class RecipeServiceImpl implements RecipeService {
 
 	private final RecipeRepository recipeRepository;
-	
+
 	public RecipeServiceImpl(RecipeRepository recipeRepository) {
 		this.recipeRepository = recipeRepository;
 	}
@@ -28,7 +28,14 @@ public class RecipeServiceImpl implements RecipeService {
 	public Set<Recipe> findAllRecipes() {
 		log.info("Calling findAllRecipes()");
 		Set<Recipe> recipes = new HashSet<>();
-		recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
-		return  recipes;
+		this.recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
+		return recipes;
+	}
+
+	@Override
+	public Recipe findRecipeById(Long id) {
+		log.info("Calling findRecipeById(Long)");
+		return this.recipeRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("No Recipe found with id: " + id));
 	}
 }

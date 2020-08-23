@@ -2,19 +2,29 @@ package twolak.springframework.domain;
 
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * @author twolak
+ *
+ */
+@ExtendWith(MockitoExtension.class)
 public class CategoryTest {
 
+	@InjectMocks
 	Category category;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
-		category = new Category();
+//		category = new Category();
 	}
 	
 	@Test

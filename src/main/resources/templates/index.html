@@ -32,11 +32,13 @@
 								<tr>
 									<th>ID</th>
 									<th>Description</th>
+									<th>View</th>
 								</tr>
 							</thead>
 							<tr th:each="recipe : ${recipes}">
 								<td style="width: 100px;" th:text="${recipe.id}">id</td>
 								<td style="width: 300px;" th:text="${recipe.description}">description</td>
+								<td style="width: 100px;"><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}" th:text="${recipe.id}">View</a></td>
 							</tr>
 						</table>
 					</div>
