@@ -11,6 +11,6 @@ import twolak.springframework.domain.Recipe;
  */
 public interface RecipeService {
 	Set<Recipe> findAllRecipes();
-	Recipe findRecipeById(Long id);
+	RecipeCommand findRecipeById(Long id);
 	RecipeCommand saveRecipe(RecipeCommand recipeCommand);
 }

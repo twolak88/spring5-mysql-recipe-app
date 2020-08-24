@@ -16,10 +16,15 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import twolak.springframework.commands.RecipeCommand;
+import twolak.springframework.converters.CategoryToCategoryCommand;
+import twolak.springframework.converters.IngredientToIngredientCommand;
+import twolak.springframework.converters.RecipeToRecipeCommand;
+import twolak.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import twolak.springframework.domain.Recipe;
 import twolak.springframework.repositories.RecipeRepository;
 
@@ -29,18 +34,22 @@ import twolak.springframework.repositories.RecipeRepository;
  */
 @ExtendWith(MockitoExtension.class)
 public class RecipeServiceImplTest {
-	
-	private final Long RECIPE_ID = 1L; 
 
-	@InjectMocks
+	private final Long RECIPE_ID = 1L;
+
 	private RecipeServiceImpl recipeService;
 
 	@Mock
 	private RecipeRepository recipeRepository;
 
+	private RecipeToRecipeCommand recipeToRecipeCommand;
+
 	@BeforeEach
 	public void setUp() throws Exception {
-		//MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.initMocks(this);
+		recipeToRecipeCommand = new RecipeToRecipeCommand(new IngredientToIngredientCommand(new  UnitOfMeasureToUnitOfMeasureCommand()), new CategoryToCategoryCommand());
+		recipeService = new RecipeServiceImpl(recipeRepository, recipeToRecipeCommand, null);
+		
 	}
 
 	@Test
@@ -62,13 +71,13 @@ public class RecipeServiceImplTest {
 		Recipe recipe = new Recipe();
 		recipe.setId(RECIPE_ID);
 		Optional<Recipe> recipeOptional = Optional.of(recipe);
-		
+
 		when(this.recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-		
-		Recipe foundRecipe = this.recipeService.findRecipeById(RECIPE_ID);
-		
+
+		RecipeCommand foundRecipe = this.recipeService.findRecipeById(RECIPE_ID);
+
 		assertNotNull("Null recipe found", foundRecipe);
-		assertEquals(recipe, foundRecipe);
+		assertEquals(recipe.getId(), foundRecipe.getId());
 		verify(this.recipeRepository, times(1)).findById(anyLong());
 		verifyNoMoreInteractions(this.recipeRepository);
 		verify(this.recipeRepository, never()).findAll();

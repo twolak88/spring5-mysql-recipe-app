@@ -42,10 +42,10 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public Recipe findRecipeById(Long id) {
+	public RecipeCommand findRecipeById(Long id) {
 		log.info("Calling findRecipeById(Long)");
-		return this.recipeRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("No Recipe found with id: " + id));
+		return this.recipeToRecipeCommand.convert(this.recipeRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("No Recipe found with id: " + id)));
 	}
 
 	@Transactional
