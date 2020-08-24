@@ -4,8 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
+import twolak.springframework.commands.RecipeCommand;
+import twolak.springframework.converters.RecipeCommandToRecipe;
+import twolak.springframework.converters.RecipeToRecipeCommand;
 import twolak.springframework.domain.Recipe;
 import twolak.springframework.repositories.RecipeRepository;
 import twolak.springframework.services.RecipeService;
@@ -19,9 +23,14 @@ import twolak.springframework.services.RecipeService;
 public class RecipeServiceImpl implements RecipeService {
 
 	private final RecipeRepository recipeRepository;
+	private final RecipeCommandToRecipe recipeCommandToRecipe;
+	private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-	public RecipeServiceImpl(RecipeRepository recipeRepository) {
+	public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeToRecipeCommand recipeToRecipeCommand,
+			RecipeCommandToRecipe recipeCommandToRecipe) {
 		this.recipeRepository = recipeRepository;
+		this.recipeCommandToRecipe = recipeCommandToRecipe;
+		this.recipeToRecipeCommand = recipeToRecipeCommand;
 	}
 
 	@Override
@@ -37,5 +46,13 @@ public class RecipeServiceImpl implements RecipeService {
 		log.info("Calling findRecipeById(Long)");
 		return this.recipeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("No Recipe found with id: " + id));
+	}
+
+	@Transactional
+	@Override
+	public RecipeCommand saveRecipe(RecipeCommand recipeCommand) {
+		Recipe convertedRecipe = this.recipeCommandToRecipe.convert(recipeCommand);
+		Recipe savedRecipe = this.recipeRepository.save(convertedRecipe);
+		return this.recipeToRecipeCommand.convert(savedRecipe);
 	}
 }

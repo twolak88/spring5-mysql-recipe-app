@@ -2,12 +2,12 @@ package twolak.springframework.services.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.never;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -18,12 +18,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import twolak.springframework.domain.Recipe;
 import twolak.springframework.repositories.RecipeRepository;
-import twolak.springframework.services.RecipeService;
 
 /**
  * @author twolak
@@ -69,11 +67,10 @@ public class RecipeServiceImplTest {
 		
 		Recipe foundRecipe = this.recipeService.findRecipeById(RECIPE_ID);
 		
-		assertNotNull(foundRecipe);
+		assertNotNull("Null recipe found", foundRecipe);
 		assertEquals(recipe, foundRecipe);
 		verify(this.recipeRepository, times(1)).findById(anyLong());
 		verifyNoMoreInteractions(this.recipeRepository);
 		verify(this.recipeRepository, never()).findAll();
-		
 	}
 }

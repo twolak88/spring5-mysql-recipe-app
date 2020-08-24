@@ -52,6 +52,6 @@ public class CategoryTest {
 		recipes.add(recipe);
 		category.setRecipes(recipes);
 		
-		assertEquals(recipes, category.getRecipes());
+		assertEquals(recipes.size(), category.getRecipes().size());
 	}
 }
