@@ -22,12 +22,16 @@ import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author twolak
  *
  */
-@Data
+@Getter
+@Setter
 @Entity
 public class Recipe {
     
@@ -49,9 +53,9 @@ public class Recipe {
     private Difficulty difficulty;
     
     @Lob
-    private byte[] image;
+    private Byte[] image;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Notes notes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")

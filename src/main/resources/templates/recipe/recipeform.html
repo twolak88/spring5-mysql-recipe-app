@@ -60,10 +60,11 @@
 									th:field="*{cookTime}" />
 							</div>
 							<div class="col-md-3 form-group">
-								<label>Difficulty:</label> <select class="form-control">
-									<option>Easy</option>
-									<option>Medium</option>
-									<option>Hard</option>
+								<label>Difficulty:</label> 
+								<select class="form-control" th:field="*{difficulty}">
+									<option th:each="difficultyVal : ${T(twolak.springframework.domain.Difficulty).values()}"
+											th:value="${difficultyVal.name()}"
+											th:text="${difficultyVal.name()}">val</option>
 								</select>
 							</div>
 						</div>
@@ -94,7 +95,7 @@
 									<p class="card-text mb-4" th:text="'Ingredients'">Ingredients</p>
 								</div>
 								<div class="col-md-1">
-									<a class="btn btn-default" href="#" role="button">Edit</a>
+									<a class="btn btn-light" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
 								</div>
 							</div>
 						</div>
@@ -102,7 +103,7 @@
 					<div class="card-body pb-0">
 						<div class="row">
 							<div class="col-md-12">
-								<ul>
+								<ul th:if="${not #lists.isEmpty(recipe.ingredients)}">
 									<li th:remove="all">1 Cup of milk</li>
 									<li th:remove="all">1 Teaspoon of chocolate</li>
 									<li th:each="ingredient : ${recipe.ingredients}"

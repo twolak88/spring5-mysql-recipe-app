@@ -46,7 +46,7 @@ public class RecipeServiceImplIT {
 		RecipeCommand testRecipeCommand = this.recipeToRecipeCommand.convert(testRecipe);
 		
 		testRecipeCommand.setDescription(DESRIPTION);
-		RecipeCommand savedRecipeCommand = this.recipeService.saveRecipe(testRecipeCommand);
+		RecipeCommand savedRecipeCommand = this.recipeService.save(testRecipeCommand);
 		
 		assertNotNull(savedRecipeCommand);
 		assertEquals(DESRIPTION, savedRecipeCommand.getDescription());

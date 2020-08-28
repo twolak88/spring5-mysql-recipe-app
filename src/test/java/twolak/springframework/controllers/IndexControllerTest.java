@@ -48,8 +48,6 @@ public class IndexControllerTest {
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-//		MockitoAnnotations.initMocks(this);
-//		indexController = new IndexController(recipeService);
 	}
 	
 	@Test
@@ -79,7 +77,7 @@ public class IndexControllerTest {
 			recipes.add(recipe);
 		}
 		
-		when(recipeService.findAllRecipes()).thenReturn(recipes);
+		when(recipeService.findAll()).thenReturn(recipes);
 		
 		ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class); 
 		
@@ -89,7 +87,7 @@ public class IndexControllerTest {
 		//then
 		assertEquals("index", viewName);
 		verify(model, times(METHODS_CALL_TIMES)).addAttribute(eq("recipes"), argumentCaptor.capture());
-		verify(recipeService, times(METHODS_CALL_TIMES)).findAllRecipes();
+		verify(recipeService, times(METHODS_CALL_TIMES)).findAll();
 		
 		Set<Recipe> setInController = argumentCaptor.getValue();
 		assertEquals(RECIPES_IN_SET, setInController.size());

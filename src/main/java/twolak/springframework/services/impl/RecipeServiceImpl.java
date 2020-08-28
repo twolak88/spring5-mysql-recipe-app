@@ -34,7 +34,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public Set<Recipe> findAllRecipes() {
+	public Set<Recipe> findAll() {
 		log.info("Calling findAllRecipes()");
 		Set<Recipe> recipes = new HashSet<>();
 		this.recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
@@ -42,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public RecipeCommand findRecipeById(Long id) {
+	public RecipeCommand findById(Long id) {
 		log.info("Calling findRecipeById(Long)");
 		return this.recipeToRecipeCommand.convert(this.recipeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("No Recipe found with id: " + id)));
@@ -50,9 +50,16 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Transactional
 	@Override
-	public RecipeCommand saveRecipe(RecipeCommand recipeCommand) {
+	public RecipeCommand save(RecipeCommand recipeCommand) {
 		Recipe convertedRecipe = this.recipeCommandToRecipe.convert(recipeCommand);
+		
 		Recipe savedRecipe = this.recipeRepository.save(convertedRecipe);
 		return this.recipeToRecipeCommand.convert(savedRecipe);
+	}
+
+	@Transactional
+	@Override
+	public void deleteById(Long id) {
+		this.recipeRepository.deleteById(id);		
 	}
 }

@@ -32,7 +32,6 @@ import twolak.springframework.repositories.RecipeRepository;
  * @author twolak
  *
  */
-@ExtendWith(MockitoExtension.class)
 public class RecipeServiceImplTest {
 
 	private final Long RECIPE_ID = 1L;
@@ -47,39 +46,53 @@ public class RecipeServiceImplTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		recipeToRecipeCommand = new RecipeToRecipeCommand(new IngredientToIngredientCommand(new  UnitOfMeasureToUnitOfMeasureCommand()), new CategoryToCategoryCommand());
+		recipeToRecipeCommand = new RecipeToRecipeCommand(
+				new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand()),
+				new CategoryToCategoryCommand());
 		recipeService = new RecipeServiceImpl(recipeRepository, recipeToRecipeCommand, null);
-		
+
 	}
 
 	@Test
-	public void testFindAllRecipes() throws Exception {
-		Recipe recipe = new Recipe();
-		Set<Recipe> recipesData = new HashSet<>();
-		recipesData.add(recipe);
+	public void testDeleteById() {
+		Long idToDelete = 2L;
+		this.recipeService.deleteById(idToDelete);
 
-		when(this.recipeRepository.findAll()).thenReturn(recipesData);
+		// woid, returned nothing, so no when
 
-		Set<Recipe> recipes = recipeService.findAllRecipes();
-
-		assertEquals(recipes.size(), 1);
-		verify(this.recipeRepository, times(1)).findAll();
+		verify(this.recipeRepository, times(1)).deleteById(anyLong());
 	}
 
 	@Test
-	public void testFindRecipeById() throws Exception {
+	public void testFindById() throws Exception {
 		Recipe recipe = new Recipe();
 		recipe.setId(RECIPE_ID);
 		Optional<Recipe> recipeOptional = Optional.of(recipe);
 
 		when(this.recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 
-		RecipeCommand foundRecipe = this.recipeService.findRecipeById(RECIPE_ID);
+		RecipeCommand foundRecipe = this.recipeService.findById(RECIPE_ID);
 
 		assertNotNull("Null recipe found", foundRecipe);
 		assertEquals(recipe.getId(), foundRecipe.getId());
 		verify(this.recipeRepository, times(1)).findById(anyLong());
 		verifyNoMoreInteractions(this.recipeRepository);
 		verify(this.recipeRepository, never()).findAll();
+	}
+
+	@Test
+	public void testFindAll() throws Exception {
+		Recipe recipe = new Recipe();
+		Set<Recipe> recipesData = new HashSet<>();
+		recipesData.add(recipe);
+
+		when(this.recipeRepository.findAll()).thenReturn(recipesData);
+
+		Set<Recipe> recipes = recipeService.findAll();
+
+		assertEquals(recipes.size(), 1);
+		verify(this.recipeRepository, times(1)).findAll();
+		verifyNoMoreInteractions(this.recipeRepository);
+		verify(this.recipeRepository, never()).findById(anyLong());
 	}
 }
