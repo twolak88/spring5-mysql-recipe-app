@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import twolak.springframework.commands.IngredientCommand;
 import twolak.springframework.commands.RecipeCommand;
+import twolak.springframework.exceptions.NotFoundException;
 import twolak.springframework.services.IngredientService;
 import twolak.springframework.services.RecipeService;
 import twolak.springframework.services.UnitOfMeasureService;
@@ -56,7 +57,8 @@ class IngredientControllerTest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(ingredientController)
+				.setControllerAdvice(new ControllerExceptionHandler()).build();
 	}
 
 	@Test
@@ -79,6 +81,22 @@ class IngredientControllerTest {
 				.andExpect(view().name("recipe/ingredient/show")).andExpect(model().attributeExists("ingredient"));
 		verify(this.ingredientService, times(1)).findByRecipeIdAndIngredientId(anyLong(), anyLong());
 		verifyNoMoreInteractions(this.ingredientService);
+	}
+	
+	@Test
+	public void testShowIngredientNotFound() throws Exception {
+		when(this.ingredientService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenThrow(NotFoundException.class);
+
+		this.mockMvc.perform(get("/recipe/1/ingredient/1/show"))
+				.andExpect(status().isNotFound())
+				.andExpect(view().name("recipe/error/404error"));
+	}
+	
+	@Test
+	public void testShowIngredientNumberFormatException() throws Exception {
+		this.mockMvc.perform(get("/recipe/1/ingredient/1b/show"))
+				.andExpect(status().isBadRequest())
+				.andExpect(view().name("recipe/error/404error"));
 	}
 	
 	@Test

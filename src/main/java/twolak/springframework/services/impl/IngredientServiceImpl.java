@@ -65,7 +65,7 @@ public class IngredientServiceImpl implements IngredientService {
 			ingredient.setDescription(ingredientCommand.getDescription());
 			ingredient.setUnitOfMeasure(
 					this.unitOfMeasureRepository.findById(ingredientCommand.getUnitOfMeasure().getId())
-							.orElseThrow(() -> new RuntimeException("Unit of measure not found!")));
+							.orElseThrow(() -> new NotFoundException("Unit of measure not found!")));
 		} else {
 			recipe.addIngredient(this.ingredientCommandToIngredient.convert(ingredientCommand));
 
@@ -86,7 +86,7 @@ public class IngredientServiceImpl implements IngredientService {
 			if (!savedingredientOptional.isPresent()) {
 				String msg = "Ingredient for id: " + ingredientCommand.getId() + " not found!";
 				log.debug(msg);
-				throw new RuntimeException(msg);
+				throw new NotFoundException(msg);
 			}
 		}
 		savedIngredient = savedingredientOptional.get();
@@ -98,7 +98,7 @@ public class IngredientServiceImpl implements IngredientService {
 		if (!recipeOptional.isPresent()) {
 			String msg = "Recipe for id: " + recipeId + " not found!";
 			log.debug(msg);
-			throw new RuntimeException(msg);
+			throw new NotFoundException(msg);
 		}
 		return recipeOptional.get();
 	}
@@ -110,7 +110,7 @@ public class IngredientServiceImpl implements IngredientService {
 		if (!recipeOptional.isPresent()) {
 			String msg = "Recipe for id: " + recipeId + " not found!";
 			log.debug(msg);
-			throw new RuntimeException(msg);
+			throw new NotFoundException(msg);
 		}
 		
 		Recipe recipe = recipeOptional.get();
@@ -120,7 +120,7 @@ public class IngredientServiceImpl implements IngredientService {
 		if (!ingredientToDeleteOptional.isPresent()) {
 			String msg  = "Ingredient for id: " + ingredientId + " not found!";
 			log.debug(msg);
-			throw new RuntimeException(msg);
+			throw new NotFoundException(msg);
 		}
 		Ingredient ingredientToDelete = ingredientToDeleteOptional.get();
 		ingredientToDelete.setRecipe(null);
