@@ -81,10 +81,16 @@ class RecipeControllerTest {
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
-//        		.andExpect(status().isOk())
         		.andExpect(view().name("recipe/error/404error"));
 		verify(this.recipeService, times(METHODS_CALL_TIMES)).findById(anyLong());
 		verifyNoMoreInteractions(this.recipeService);
+	}
+	
+	@Test
+	public void testGetRecipeByIdNumberFormatEx() throws Exception {
+        mockMvc.perform(get("/recipe/abc/show"))
+                .andExpect(status().isBadRequest())
+        		.andExpect(view().name("recipe/error/404error"));
 	}
 
 	@Test

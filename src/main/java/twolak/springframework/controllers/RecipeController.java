@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import twolak.springframework.commands.RecipeCommand;
 import twolak.springframework.exceptions.NotFoundException;
 import twolak.springframework.services.RecipeService;
+import twolak.springframework.tools.ExceptionHandlerForControllers;
 
 /**
  * @author twolak
@@ -66,13 +67,13 @@ public class RecipeController {
 	
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
-	public ModelAndView handleNotFound(Exception exception) {
-		log.error("Handling not found exception");
-		log.error(exception.getMessage());
-		log.error(ExceptionUtils.getStackTrace(exception));
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("recipe/error/404error");
-		modelAndView.addObject("exception", exception);
-		return modelAndView;
+	public ModelAndView handleNotFound(NotFoundException exception) {
+		return ExceptionHandlerForControllers.handleException(exception, HttpStatus.NOT_FOUND);
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(NumberFormatException.class)
+	public ModelAndView handleNumberFormat(NumberFormatException exception) {
+		return ExceptionHandlerForControllers.handleException(exception, HttpStatus.BAD_REQUEST);
 	}
 }
