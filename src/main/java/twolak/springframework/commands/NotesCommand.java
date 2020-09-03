@@ -3,12 +3,12 @@
  */
 package twolak.springframework.commands;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import twolak.springframework.domain.UnitOfMeasure;
 
 /**
  * @author twolak
@@ -19,5 +19,7 @@ import twolak.springframework.domain.UnitOfMeasure;
 @NoArgsConstructor
 public class NotesCommand {
 	private Long id;
+	
+	@NotBlank
 	private String note;
 }
