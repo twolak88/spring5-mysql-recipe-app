@@ -11,6 +11,7 @@ import twolak.springframework.commands.RecipeCommand;
 import twolak.springframework.converters.RecipeCommandToRecipe;
 import twolak.springframework.converters.RecipeToRecipeCommand;
 import twolak.springframework.domain.Recipe;
+import twolak.springframework.exceptions.NotFoundException;
 import twolak.springframework.repositories.RecipeRepository;
 import twolak.springframework.services.RecipeService;
 
@@ -45,7 +46,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public RecipeCommand findById(Long id) {
 		log.info("Calling findRecipeById(Long)");
 		return this.recipeToRecipeCommand.convert(this.recipeRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("No Recipe found with id: " + id)));
+				.orElseThrow(() -> new NotFoundException("No Recipe found with id: " + id)));
 	}
 
 	@Transactional

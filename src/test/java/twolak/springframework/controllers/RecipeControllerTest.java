@@ -14,6 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.Optional;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import twolak.springframework.commands.RecipeCommand;
+import twolak.springframework.exceptions.NotFoundException;
 import twolak.springframework.services.RecipeService;
 
 /**
@@ -54,7 +57,7 @@ class RecipeControllerTest {
 	}
 
 	@Test
-	public void testGetRecipe() throws Exception {
+	public void testGetRecipeById() throws Exception {
 		RecipeCommand recipeCommand = new RecipeCommand();
 		recipeCommand.setId(1L);
 
@@ -68,6 +71,16 @@ class RecipeControllerTest {
 				.andExpect(handler().handlerType(RecipeController.class))
 				.andExpect(handler().methodName("getRecipe"));
 
+		verify(this.recipeService, times(METHODS_CALL_TIMES)).findById(anyLong());
+		verifyNoMoreInteractions(this.recipeService);
+	}
+	
+	@Test
+	public void testGetRecipeByIdNotFound() throws Exception {
+		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
 		verify(this.recipeService, times(METHODS_CALL_TIMES)).findById(anyLong());
 		verifyNoMoreInteractions(this.recipeService);
 	}

@@ -2,6 +2,7 @@ package twolak.springframework.services.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -26,6 +27,7 @@ import twolak.springframework.converters.IngredientToIngredientCommand;
 import twolak.springframework.converters.RecipeToRecipeCommand;
 import twolak.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import twolak.springframework.domain.Recipe;
+import twolak.springframework.exceptions.NotFoundException;
 import twolak.springframework.repositories.RecipeRepository;
 
 /**
@@ -78,6 +80,17 @@ public class RecipeServiceImplTest {
 		verify(this.recipeRepository, times(1)).findById(anyLong());
 		verifyNoMoreInteractions(this.recipeRepository);
 		verify(this.recipeRepository, never()).findAll();
+	}
+	
+	@Test
+	public void testFindByIdNotFound() {
+		Optional<Recipe> recipeOptional = Optional.empty();
+		
+		when(this.recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+		
+		assertThrows(NotFoundException.class, () -> this.recipeService.findById(RECIPE_ID));
+		verify(this.recipeRepository, times(1)).findById(anyLong());
+		verifyNoMoreInteractions(this.recipeRepository);
 	}
 
 	@Test
