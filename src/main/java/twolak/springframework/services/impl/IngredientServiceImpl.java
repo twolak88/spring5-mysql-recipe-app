@@ -13,6 +13,7 @@ import twolak.springframework.converters.IngredientCommandToIngredient;
 import twolak.springframework.converters.IngredientToIngredientCommand;
 import twolak.springframework.domain.Ingredient;
 import twolak.springframework.domain.Recipe;
+import twolak.springframework.exceptions.NotFoundException;
 import twolak.springframework.repositories.RecipeRepository;
 import twolak.springframework.repositories.UnitOfMeasureRepository;
 import twolak.springframework.services.IngredientService;
@@ -48,7 +49,7 @@ public class IngredientServiceImpl implements IngredientService {
 		if (!ingredientOptional.isPresent()) {
 			String msg = "Ingredient for id: " + ingredientId + " not found!";
 			log.debug(msg);
-			throw new RuntimeException(msg);
+			throw new NotFoundException(msg);
 		}
 		return ingredientOptional.get(); 
 	}

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author twolak
  *
  */
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class NotFoundException extends RuntimeException {
 
 	public NotFoundException() {

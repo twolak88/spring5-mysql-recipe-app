@@ -41,12 +41,13 @@ public class RecipeServiceImpl implements RecipeService {
 		this.recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
 		return recipes;
 	}
-
+	
+	@Transactional
 	@Override
 	public RecipeCommand findById(Long id) {
 		log.info("Calling findRecipeById(Long)");
 		return this.recipeToRecipeCommand.convert(this.recipeRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("No Recipe found with id: " + id)));
+				.orElseThrow(() -> new NotFoundException("No Recipe found for id: " + id)));
 	}
 
 	@Transactional
