@@ -20,6 +20,7 @@ public class ExceptionHandlerForControllers {
 		log.error("Handling " + exception.getClass());
 		log.error(exception.getMessage());
 		log.error(ExceptionUtils.getStackTrace(exception));
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("recipe/error/404error");
 		modelAndView.addObject("exception", exception);
