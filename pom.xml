@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>twolak.springframework</groupId>
-	<artifactId>spring5-recipe-app</artifactId>
+	<artifactId>spring5-mysql-recipe-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring5-recipe-app</name>
+	<name>spring5-mysql-recipe-app</name>
 	<description>Simple spring boot app</description>
 
 	<properties>
