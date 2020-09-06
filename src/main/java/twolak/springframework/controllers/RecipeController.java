@@ -2,6 +2,7 @@ package twolak.springframework.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

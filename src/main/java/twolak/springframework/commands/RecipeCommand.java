@@ -6,6 +6,7 @@ package twolak.springframework.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -55,6 +56,8 @@ public class RecipeCommand {
 	private String directions;
 	
 	private Difficulty difficulty;
+	
+	@Valid
 	private NotesCommand notes;
     private Byte[] image;
 	private Set<IngredientCommand> ingredients = new HashSet<>();

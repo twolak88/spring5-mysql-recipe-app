@@ -27,13 +27,25 @@
 						</div>
 					</div>
 					<div class="card-body pb-0">
+						<div class="row alert alert-danger"
+							th:if="${#fields.hasErrors('*')}">
+							<p>Please correct errors below.</p>
+						</div>
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<label>Recipe Description:</label> <input type="text"
-									class="form-control" th:field="*{description}" />
+								<label th:text="#{recipe.description}">Recipe Description:</label> <input type="text"
+									class="form-control"
+									th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"
+									th:field="*{description}"/> <span
+									class="invalid-feedback"
+									th:if="${#fields.hasErrors('description')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('description')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label>Categories:</label>
@@ -53,18 +65,34 @@
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label>Prep Time:</label> <input type="text"
-									class="form-control" th:field="*{prepTime}" />
+									class="form-control"
+									th:classappend="${#fields.hasErrors('prepTime')} ? 'is-invalid' : ''"
+									th:field="*{prepTime}" /> <span class="invalid-feedback"
+									th:if="${#fields.hasErrors('prepTime')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('prepTime')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label>Cooktime:</label> <input type="text" class="form-control"
-									th:field="*{cookTime}" />
+									th:classappend="${#fields.hasErrors('cookTime')} ? 'is-invalid' : ''"
+									th:field="*{cookTime}" /> <span class="invalid-feedback"
+									th:if="${#fields.hasErrors('cookTime')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('cookTime')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 							<div class="col-md-3 form-group">
-								<label>Difficulty:</label> 
-								<select class="form-control" th:field="*{difficulty}">
-									<option th:each="difficultyVal : ${T(twolak.springframework.domain.Difficulty).values()}"
-											th:value="${difficultyVal.name()}"
-											th:text="${difficultyVal.name()}">val</option>
+								<label>Difficulty:</label> <select class="form-control"
+									th:field="*{difficulty}">
+									<option
+										th:each="difficultyVal : ${T(twolak.springframework.domain.Difficulty).values()}"
+										th:value="${difficultyVal.name()}"
+										th:text="${difficultyVal.name()}">val</option>
 								</select>
 							</div>
 						</div>
@@ -72,15 +100,36 @@
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label>Servings:</label> <input type="text" class="form-control"
-									th:field="*{servings}" />
+									th:classappend="${#fields.hasErrors('servings')} ? 'is-invalid' : ''"
+									th:field="*{servings}" /><span class="invalid-feedback"
+									th:if="${#fields.hasErrors('servings')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('servings')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label>Source:</label> <input type="text" class="form-control"
-									th:field="*{source}" />
+									th:classappend="${#fields.hasErrors('source')} ? 'is-invalid' : ''"
+									th:field="*{source}" /> <span class="invalid-feedback"
+									th:if="${#fields.hasErrors('source')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('source')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label>URL:</label> <input type="text" class="form-control"
-									th:field="*{url}" />
+									th:classappend="${#fields.hasErrors('url')} ? 'is-invalid' : ''"
+									th:field="*{url}" /> <span class="invalid-feedback"
+									th:if="${#fields.hasErrors('url')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('url')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 						</div>
 
@@ -95,7 +144,9 @@
 									<p class="card-text mb-4" th:text="'Ingredients'">Ingredients</p>
 								</div>
 								<div class="col-md-1">
-									<a class="btn btn-light" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+									<a class="btn btn-light" href="#"
+										th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}"
+										role="button">View</a>
 								</div>
 							</div>
 						</div>
@@ -126,7 +177,16 @@
 					<div class="card-body pb-0">
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<textarea class="form-control" rows="3" th:field="*{directions}"></textarea>
+								<textarea class="form-control"
+									th:classappend="${#fields.hasErrors('directions')} ? 'is-invalid' : ''"
+									rows="3" th:field="*{directions}"></textarea>
+								<span class="invalid-feedback"
+									th:if="${#fields.hasErrors('directions')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('directions')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -141,7 +201,16 @@
 					<div class="card-body pb-0">
 						<div class="row">
 							<div class="col-md-12 form-group">
-								<textarea class="form-control" rows="3" th:field="*{notes.note}"></textarea>
+								<textarea class="form-control"
+									th:classappend="${#fields.hasErrors('notes.note')} ? 'is-invalid' : ''"
+									rows="3" th:field="*{notes.note}"></textarea>
+								<span class="invalid-feedback"
+									th:if="${#fields.hasErrors('notes.note')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('notes.note')}"
+											th:text="${err}" />
+									</ul>
+								</span>
 							</div>
 						</div>
 					</div>
