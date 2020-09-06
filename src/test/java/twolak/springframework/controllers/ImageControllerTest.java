@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -73,11 +72,8 @@ class ImageControllerTest {
 	}
 	
 	@Test
-	@Disabled
 	void testHandleImagePost() throws Exception {
-		MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "testing.txt", "text/plain", "Spring Framework TW".getBytes());
-		
-		//doNothing().when(this.imageService).saveImageFile(anyLong(), any());
+		MockMultipartFile mockMultipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain", "Spring Framework TW".getBytes());
 		
 		this.mockMvc.perform(multipart("/recipe/1/image").file(mockMultipartFile))
 					.andExpect(status().is3xxRedirection())
