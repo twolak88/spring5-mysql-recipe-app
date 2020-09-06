@@ -36,13 +36,13 @@ jobs:
               paths:
               - ~/.m2
               key: v1-dependencies-{{ checksum "pom.xml" }}
-
-        # run tests!
-        - run: mvn integration-test cobertura:cobertura
         
-        - store_test_results:
-              path: target/surefire-reports
-
+        - run: mvn install
+        # run tests!
+        - run: mvn test
+        
+        - run: "mvn cobertura:cobertura"
+        
         - run:
               name: Send to CodeCov
               command: bash <(curl -s https://codecov.io/bash) -t 2904279f-36cc-4028-9a64-b89f2766d406
