@@ -44,7 +44,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		log.debug("Loading bootstrap data");
-		recipeRepository.saveAll(getRecipes());
+		this.recipeRepository.saveAll(getRecipes());
 	}
 
 	private List<Recipe> getRecipes() {
